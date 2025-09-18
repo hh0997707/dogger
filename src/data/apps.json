@@ -2818,5 +2818,12 @@
       "url": "https://html-classic.itch.zone/html/14803006/ppg/index.html",
       "disabled": false
     }
+    {
+      "appName": "Block Blast",
+      "desc": "Brain Games",
+      "icon": "https://imgs.crazygames.com/block-puzzle-master_1x1/20240308034606/block-puzzle-master_1x1-cover",
+      "url": "https://block-blast-three.vercel.app/",
+      "disabled": false
+    }
   ]
 }
