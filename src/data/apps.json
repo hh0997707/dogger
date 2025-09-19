@@ -87,6 +87,13 @@
       "disabled": false
     },
     {
+      "appName": "Cinemaos",
+      "desc": "Free movie/tv streaming!",
+      "icon": "/assets/img/cinemaos.webp",
+      "url": "https://cinemaos.live/",
+      "disabled": false
+    },
+    {
       "appName": "Discord",
       "desc": "Chat, voice, and communities all in one place.",
       "icon": "https://www.google.com/s2/favicons?sz=128&domain=discord.com",
