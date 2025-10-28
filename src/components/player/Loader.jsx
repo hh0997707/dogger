@@ -8,10 +8,15 @@ import clsx from 'clsx';
 const Loader = ({ theme, app }) => {
     const gmRef = useRef(null);
     const [zoom, setZoom] = useState(1);
+    const [isRoblox, setIsRoblox] = useState(false);
 
     useEffect(() => {
         const query = sessionStorage.getItem('query');
         if (!query) window.location.href = '/docs';
+        else if (query.includes('.ip.nowgg.fun/apps/a/19900/b.html')) {
+            setIsRoblox(true);
+            alert("This bypass was made by frogie. If it doesn't work the first time, try refreshing the page.");
+        }
     }, []);
 
     const fs = () => gmRef.current?.requestFullscreen?.();
@@ -51,6 +56,7 @@ const Loader = ({ theme, app }) => {
                 ref={gmRef}
                 onContextMenu={(e) => e.preventDefault()}
                 className="w-full flex-grow"
+                {...(isRoblox && { sandbox: "allow-same-origin allow-scripts allow-forms allow-pointer-lock allow-orientation-lock allow-popups" })}
             />
 
             <div className="p-2.5 flex gap-2 border-t">

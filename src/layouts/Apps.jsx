@@ -15,6 +15,34 @@ const SORT_OPTIONS = [
   { value: 'newest', label: 'Newest' },
 ];
 
+const getFirstIP = async () => {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    const ip = data.ip;
+    const firstOctet = ip.split('.')[0];
+    return firstOctet;
+  } catch (error) {
+    console.error('Failed to fetch IP:', error);
+    return '0';
+  }
+};
+
+const processDogeURL = async (url) => {
+  if (!url.startsWith('dogeub://')) {
+    return url;
+  }
+
+  const protocol = url.substring(9);
+
+  if (protocol === 'roblox') {
+    const firstOctet = await getFirstIP();
+    return `https://${firstOctet}.ip.nowgg.fun/apps/a/19900/b.html`;
+  }
+
+  return url;
+};
+
 const AppCard = memo(({ app, onClick, fallbackMap, onImgError, itemTheme, itemStyles }) => (
   <div
     key={app.appName}
@@ -80,12 +108,20 @@ const Apps = memo(({ type = 'default', data = appsData }) => {
     if (page > filtered.totalPages && filtered.totalPages > 0) setPage(1);
   }, [page, filtered.totalPages]);
 
-  const navApp = useCallback((app) => {
+  const navApp = useCallback(async (app) => {
     if (!app) return;
-    sessionStorage.setItem('query', app.url);
+    const processedUrl = await processDogeURL(app.url);
+    sessionStorage.setItem('query', processedUrl);
+    
+    if (processedUrl.includes('.ip.nowgg.fun/apps/a/19900/b.html')) {
+      sessionStorage.setItem('blockAlerts', 'true');
+    } else {
+      sessionStorage.removeItem('blockAlerts');
+    }
+    
     if (type != "apps") nav('/docs/r/', { state: { app } })
     else nav('/indev');
-  }, [nav]);
+  }, [nav, type]);
 
   const handleSearch = useCallback((e) => {
     setQ(e.target.value);

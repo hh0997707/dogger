@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 .env
+
+# Custom dev commands & scripts
+reclassify-games.mjs
+update-game-icons.mjs
